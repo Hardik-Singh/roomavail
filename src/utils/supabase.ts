@@ -1,18 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Inline fallback if vite-env.d.ts isn't being picked up
-interface ImportMetaEnvFix {
-  readonly VITE_SUPABASE_URL: string;
-  readonly VITE_SUPABASE_ANON_KEY: string;
+// ✅ Vite auto-populates import.meta.env if .env is configured correctly
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    '❌ Supabase environment variables are missing. Make sure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are defined in .env and start with VITE_'
+  );
 }
-
-interface ImportMetaFix {
-  readonly env: ImportMetaEnvFix;
-}
-
-const meta = import.meta as unknown as ImportMetaFix;
-
-const supabaseUrl = meta.env.VITE_SUPABASE_URL;
-const supabaseKey = meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
