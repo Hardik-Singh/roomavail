@@ -41,7 +41,7 @@ const StatusSlider: React.FC<StatusSliderProps> = ({ currentStatus, onChange }) 
             <button
               key={status}
               className={`flex flex-col items-center justify-center p-4 rounded-xl transition-all duration-300 focus:outline-none ${
-                isActive ? "text-white bg-white/10 shadow-lg ring-2 ring-white" : "text-gray-400 hover:text-white"
+                isActive ? "text-purple-400 bg-white/10 shadow-lg ring-2 ring-purple-400" : "text-gray-400 hover:text-white"
               }`}
               aria-checked={isActive}
               aria-label={statusConfig[status].label}
