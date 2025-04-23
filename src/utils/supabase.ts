@@ -1,9 +1,18 @@
-// src/lib/supabase.ts
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL!;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY!;
+// Inline fallback if vite-env.d.ts isn't being picked up
+interface ImportMetaEnvFix {
+  readonly VITE_SUPABASE_URL: string;
+  readonly VITE_SUPABASE_ANON_KEY: string;
+}
 
-export const supabase = createClient(
-    supabaseUrl, supabaseKey
-  );
+interface ImportMetaFix {
+  readonly env: ImportMetaEnvFix;
+}
+
+const meta = import.meta as unknown as ImportMetaFix;
+
+const supabaseUrl = meta.env.VITE_SUPABASE_URL;
+const supabaseKey = meta.env.VITE_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseKey);
