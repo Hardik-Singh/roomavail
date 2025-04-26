@@ -5,9 +5,10 @@ import {
   FaMoon,
   FaClock,
   FaShieldAlt,
+  FaCouch,
 } from "react-icons/fa";
 
-export type StatusType = "out-of-home" | "sleeping" | "busy" | "dnd";
+export type StatusType = "out-of-home" | "sleeping" | "busy" | "dnd" | "chilling";
 
 interface StatusSliderProps {
   currentStatus: StatusType;
@@ -27,10 +28,13 @@ const statusConfig: Record<StatusType, { icon: JSX.Element; label: string }> = {
   dnd: {
     icon: <FaShieldAlt />, label: "Do Not Disturb"
   },
+  chilling: {
+    icon: <FaCouch />, label: "Chilling"
+  },
 };
 
 const StatusSlider: React.FC<StatusSliderProps> = ({ currentStatus, onChange }) => {
-  const statuses: StatusType[] = ["out-of-home", "sleeping", "busy", "dnd"];
+  const statuses: StatusType[] = ["out-of-home", "sleeping", "busy", "dnd", "chilling"];
 
   return (
     <div className="mt-4 w-full flex flex-col items-center gap-4" role="radiogroup" aria-label="Status selector">
